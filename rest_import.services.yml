@@ -1,0 +1,13 @@
+services:
+  rest_import.select:
+    class: Drupal\rest_import\SelectService
+    arguments: ["@http_client"]
+
+  rest_import.send_result:
+    class: Drupal\rest_import\SendResultService
+    arguments: ["@serialization.json"]
+
+  rest_import.sequence:
+    class: Drupal\rest_import\SequenceService
+    arguments: ["@rest_import.select"]
+

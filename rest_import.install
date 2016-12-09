@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the shortcut module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function rest_import_schema() {
+  $schema['rest_import_log'] = array(
+    'description' => 'Rest Import queue processing result for logging purpose.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The import id.',
+      ),
+      'source_id' => array(
+        'type' => 'varchar_ascii', // could be float or something else
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The source entity type.',
+      ),
+      'target_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Drupal target entity id.',
+      ),
+      'source_entity_type' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The source entity type.',
+      ),
+      'target_entity_type' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The Drupal target entity type (node, taxonomy_term, user).',
+      ),
+      'target_entity_bundle' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The Drupal target entity bundle ("id") machine name.',
+      ),
+      'language' => array(
+        'type' => 'varchar_ascii',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The common language code.',
+      ),
+      'requested_operation' => array(
+        'type' => 'varchar_ascii',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The requested operation (create, update, delete).',
+      ),
+      'applied_operation' => array(
+        'type' => 'varchar_ascii',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The applied operation (create, update, delete).',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The status of the operation in Drupal.
+         Contains the status code that was sent back to the web service.',
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+    // @todo indexes and foreign keys
+    'indexes' => array(
+      'source_id' => array('source_id'),
+    ),
+//    'foreign keys' => array(
+//      'xxx' => array(
+//        'table' => 'xxx',
+//        'columns' => array('id' => 'id'),
+//      ),
+//    ),
+  );
+
+  $schema['rest_import_map'] = array(
+    'description' => 'Rest Import source and target entity mapping.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The mapping id.',
+      ),
+      'source_id' => array(
+        'type' => 'varchar_ascii', // could be float or something else
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The source entity type.',
+      ),
+      'target_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Drupal target entity id.',
+      ),
+      'source_entity_type' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The source entity type.',
+      ),
+      'target_entity_type' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The Drupal target entity type.',
+      ),
+      'target_entity_bundle' => array(
+        'type' => 'varchar_ascii',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The Drupal target entity bundle ("id") machine name.',
+      ),
+      'language' => array(
+        'type' => 'varchar_ascii',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The common language code.',
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+    // @todo indexes and foreign keys
+    'indexes' => array(
+      'source_id' => array('source_id'),
+      'target_id' => array('target_id'),
+    ),
+//    'foreign keys' => array(
+//      'xxx' => array(
+//        'table' => 'xxx',
+//        'columns' => array('id' => 'id'),
+//      ),
+//    ),
+  );
+
+  return $schema;
+}

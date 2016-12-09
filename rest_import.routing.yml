@@ -1,0 +1,51 @@
+rest_import.entity_import_queue_form:
+  path: '/admin/rest_import/queue_import'
+  defaults:
+    _form: '\Drupal\rest_import\Form\EntityImportQueueForm'
+    _title: 'Queue Entity Import'
+  requirements:
+    _permission: 'administer site configuration'
+
+rest_import.service_config_form:
+  path: '/admin/config/rest_import/web_service'
+  defaults:
+    _form: '\Drupal\rest_import\Form\RestImportServiceConfigForm'
+    _title: 'Rest Import web service configuration'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+## Testing
+
+rest_import.test_controller_main:
+  path: '/admin/rest_import/test'
+  defaults:
+    _controller: '\Drupal\rest_import\Controller\TestController::main'
+    _title: 'REST operations test main page'
+  requirements:
+    _permission: 'administer site configuration'
+
+rest_import.test_sequence_controller_import:
+  path: '/admin/rest_import/test/sequence/import'
+  defaults:
+    _controller: '\Drupal\rest_import\Controller\TestSequenceController::import'
+    _title: 'Testing REST sequence import.'
+  requirements:
+    _permission: 'access content'
+
+rest_import.test_select_unique_controller:
+  path: '/admin/rest_import/test/select/unique/{entity_type}/{entity_id}/{language}'
+  defaults:
+    _controller: '\Drupal\rest_import\Controller\TestSelectController::selectUnique'
+    _title: 'Testing REST select unique entity operation.'
+  requirements:
+    _permission: 'administer site configuration'
+
+rest_import.test_select_multiple_controller:
+  path: '/admin/rest_import/test/select/multiple/{entity_type}/{limit}/{language}'
+  defaults:
+    _controller: '\Drupal\rest_import\Controller\TestSelectController::selectMultiple'
+    _title: 'Testing REST select multiple entities operation.'
+  requirements:
+    _permission: 'administer site configuration'

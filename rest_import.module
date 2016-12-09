@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains rest_import.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\QueueInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rest_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rest_import module.
+    case 'help.page.rest_import':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Import and convert Rest ressources into Drupal entities.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function rest_import_entity_delete(EntityInterface $entity) {
+  $delete = \Drupal::database()->delete('rest_import_map')
+    ->condition('target_id', $entity->id())
+    // node, taxonomy_term
+    ->condition('target_entity_type', $entity->getEntityTypeId())
+    // licence_file, licence_status, ...
+    ->condition('target_entity_bundle', $entity->bundle())
+    ->execute();
+}

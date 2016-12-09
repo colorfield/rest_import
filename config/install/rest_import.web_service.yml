@@ -1,0 +1,4 @@
+rest_import:
+  format: "json"
+  debug_mode: 0
+  import_uid: 1

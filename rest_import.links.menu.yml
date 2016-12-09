@@ -1,0 +1,13 @@
+rest_import.service_config_form:
+  title: 'Rest Import config'
+  route_name: rest_import.service_config_form
+  description: 'Rest Import endpoint configuration.'
+  parent: system.admin_config_system
+  weight: 80
+
+rest_import.entity_import_queue_form:
+  title: 'Rest Import queue'
+  route_name: rest_import.entity_import_queue_form
+  description: 'Rest Import manual queue import form.'
+  parent: system.admin_config_system
+  weight: 90

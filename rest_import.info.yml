@@ -1,0 +1,5 @@
+name: Rest Import
+type: module
+description: Import and convert Rest ressources into Drupal entities.
+core: 8.x
+package: Web services
