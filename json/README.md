@@ -55,8 +55,3 @@ If no errors are thrown, the header will be empty
 - The JSON schema is inspired by jsonapi.org
 - Language codes are based on [ISO-639]( https://en.wikipedia.org/wiki/ISO_639), we will follow the ISO 639-1 where language code 
 are defined with two letters (English = 'en') and no language is defined with '-'.
-
-## Languages related documentation
-
-Entity types and fields translation are defined in this 
-[Google Document ](https://docs.google.com/spreadsheets/d/1ymMAYD16ItN7DzcWviSaCj6fjC-xyF_MpUzuPkQRnko/edit#gid=0)
